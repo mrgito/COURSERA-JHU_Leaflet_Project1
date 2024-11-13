@@ -1,0 +1,51 @@
+---
+title: "R Markdown and Leaflet Coursera JHU"
+author: "Gito"
+date: "2024-11-13"
+output: html_document
+---
+
+# Instruction
+
+Create a web page using R Markdown that features a map created with Leaflet. Host your webpage on either GitHub Pages, RPubs, or NeoCities. Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+
+# Executive Summary
+
+This project is part of Coursera - John Hopkins University course on R Markdown and Leaflet.
+
+In this project, we will create map containing Korean Restaurant Data in Riyadh, Saudi Arabia. The data contains coordinate, rating and price. We will use Github and Rpub to host webpage. Below are the step used to generate webpage :
+
+1.  Import Restaurant data set from local directory and load necessary library. Data is attached in here in github, file name : Korean_Rest_Riyadh.csv
+
+2.  Generate Leaflet, Tiles and Marker, we will show restaurant name, rating and price range
+
+3.  Generate Map
+
+# Import Restaurant data set from local directory
+
+We will import data set and will save as Restaurant variable
+
+```{r }
+library(dplyr)
+library(leaflet)
+library(htmltools)
+
+restaurant <- read.csv("C:/RSTUDIO/COURSERA/R DATA SCIENCE/DATA PRODUCT/Korean_Rest_Riyadh.csv", header = TRUE)
+
+print(restaurant)
+```
+
+# Generate Map by Leaflet, Adding Tiles and Markers
+
+Below are My best Korean Restaurant in Riyadh Saudi Arabia
+
+```{r }
+restaurant_map <- restaurant |> leaflet() |> addTiles() |> 
+  addMarkers(popup = paste ("<br>Country: ", htmlEscape(restaurant$Country),
+                            "<br>City: ",htmlEscape(restaurant$City),
+                            "<br>Restaurant: ",htmlEscape(restaurant$RestaurantName),
+                            "<br>Price: ",htmlEscape(restaurant$Price),
+                            "<br>Rating: ",htmlEscape(restaurant$Rating)))
+restaurant_map
+```
+
